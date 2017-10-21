@@ -1,6 +1,7 @@
 
 const mysql = require('mysql');
 const express = require('express');
+const bodyParser = require('body-parser');
 var http = require('http');
 var https = require('https');
 
@@ -44,17 +45,6 @@ function pooledQuery(sqlQuery, callback) {
     }); //END POOL
 }
 
-//unique id = hackathon name
-//default order (no params is by review date ascending)
-function parseParamsQuery(query, callback){
-	let sqlQuery = 'SELECT * FROM ' + config.db.tableName + ' WHERE id =' mysql.escape(query);
-	
-	sqlPool(sqlQuery, function(err, res){
-		if(typeof callback === 'function') callback(err, res);
-	});
-	
-}
-
 //TODO: SQL, SERVER ROUTING/API LOGIC TO SQL
 //SQL: Name of hackathon --> unique ID
 //listofhackathons (hard code this :'( )
@@ -80,16 +70,61 @@ app.get('/data/reviews', function (req, res) {
         res.setHeader('Content-Type', 'application/json');
         res.send(JSON.stringify({ data: resp }));
     }
+	//unique id = hackathon name
+	//default order (no params is by review date ascending)
+	function parseParamsQuery(query, callback){
+		let sqlQuery = 'SELECT * FROM ' + config.db.tableName + ' WHERE id =' + sqlPool.escape(query) + ' ORDER BY created_date ASC';
+		
+		sqlPool(sqlQuery, function(err, res){
+			if(typeof callback === 'function') callback(err, res);
+		});
+		
+	}
 	
 	parseParamsQuery(req.query, handleDBResp);
 });
 
+//Post form data (review) to add to DB
+//REQUIRED PARAMS:
+//id to identify hackathon //maybe TODO, check that this is a valid hackathon name in db
+//title of review
+//venue rating (0-10)
+//funding rating (0-10)
+//food rating (0-10)
+//recommend (0-1)
+//reimbursement (0-16mil)
+//comments (text, limit to 4194304 chars)
 app.post('/add/reviews', function(req, res){
-	//req.body.somethingsomething
-	
 	//TODO: parse body, title --> escape text --> add to mysql
 	//If missing any of the parameters, then DO NOT ADD the review and return some error response.
+	let data = req.body;
 	
+	if(!(data.id && data.title && data.venue && data.funding && data.food && data.rec && data.reimb && data.comments)){
+		//missing an item. do nothing and return an error response
+		res.json({status: 400, error: 'Wrong or missing parameters'})
+	} else {
+        function handleDBResp(err, resp) {
+            if (err){
+                console.log(err);
+                res.json({status: 500, error: 'Failed to update database'});
+            } else{
+                res.json({status: 200, success: 'Database updated'});
+            }
+        }
+		//parse input to query lang with escapings
+		let myQuery = 'INSERT INTO ' + config.db.tableName
+			+ ' (id, title, venue, funding, food, recommend, reimburse, comments) VALUES ?';
+		let dataArr = [data.id, data.title, data.venue, data.funding, data.food, data.rec, data.reimb, data.comments];
+        
+        //make sql query
+        sqlPool.getConnection(function (err, connection) {
+            connection.query(sqlQuery, dataArr, function (err, res) {
+                connection.release();
+                if (err) console.log('Error getting data from db!');
+                handleDBResp(err, res);
+            });
+        }); //END POOL
+	}
 	
 });
 
