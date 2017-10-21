@@ -25,13 +25,12 @@ app.use(bodyParser.json());
 const sqlPool = mysql.createPool(config.db.connectionOp);
 //test connection
 sqlPool.getConnection(function (err, connection) {
-    //TODO REMOVE THROWS
     connection.release();
     if (err) console.log(err);
     else console.log("DB connected!");
 });
 
-//function to get entries from database using a pooled connection, given a query and a callback function.
+//function to query a database using a pooled connection, given a query and a callback function.
 //No error handling
 function pooledQuery(sqlQuery, callback) {
     //console.log(sqlQuery); //debug ONLY
@@ -41,7 +40,6 @@ function pooledQuery(sqlQuery, callback) {
             if (err) console.log('Error getting data from db!');
             if (typeof callback === 'function') callback(err, res);
             else console.log('Error query callback is not a function.');
-            }
         });
     }); //END POOL
 }
@@ -68,13 +66,17 @@ function parseParamsQuery(query, callback){
 //id 	- unique hackathon id name (string)
 //title - review title name (string)
 //created_date	- post date of review (datetime)
-//venue	- int 0 to 10
+//venue	- 0 to 10 int
+//sponsors/prizes - 0 to 10 int
+//food	- 0 to 10 int
+//recommend	- 0 or 1 (boolean 1 is yes)
+//reimbursement amount	- integer between 0 and 16 million
+//comments	- string block of text, supports emojis
 app.get('/data/reviews', function (req, res) {
 	function handleDBResp(err, resp) {
         if (err) console.log(err);
 		
         res.setHeader('Access-Control-Allow-Methods', 'GET');
-        //console.log(resp);
         res.setHeader('Content-Type', 'application/json');
         res.send(JSON.stringify({ data: resp }));
     }
@@ -87,6 +89,8 @@ app.post('/add/reviews', function(req, res){
 	
 	//TODO: parse body, title --> escape text --> add to mysql
 	//If missing any of the parameters, then DO NOT ADD the review and return some error response.
+	
+	
 });
 
 
