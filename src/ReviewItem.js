@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class HackaItem extends Component {
+class ReviewItem extends Component {
     constructor(props) {
         super(props);
     }
@@ -8,9 +8,9 @@ class HackaItem extends Component {
   render() {
 	  
 	  return(
-		<div>HackaItem</div>
+		<div>ReviewItem</div>
 	  );
   }
 }
 
-export default HackaItem;
+export default ReviewItem;

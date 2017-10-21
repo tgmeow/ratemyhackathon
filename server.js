@@ -63,6 +63,12 @@ function parseParamsQuery(query, callback){
 //info of hackathon (hard code this :'( ), summary (hard code this)
 
 //individual ratings of a hackathon --> MYSQL
+
+//RETURN VALUES:
+//id 	- unique hackathon id name (string)
+//title - review title name (string)
+//created_date	- post date of review (datetime)
+//venue	- int 0 to 10
 app.get('/data/reviews', function (req, res) {
 	function handleDBResp(err, resp) {
         if (err) console.log(err);
@@ -79,7 +85,8 @@ app.get('/data/reviews', function (req, res) {
 app.post('/add/reviews', function(req, res){
 	//req.body.somethingsomething
 	
-	//TODO: parse body --> escape text --> add to mysql
+	//TODO: parse body, title --> escape text --> add to mysql
+	//If missing any of the parameters, then DO NOT ADD the review and return some error response.
 });
 
 
