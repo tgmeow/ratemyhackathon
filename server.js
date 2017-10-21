@@ -15,11 +15,8 @@ app.set('port', (process.env.PORT || 5000));
 app.use(express.static('./build'));
 app.use('/static', express.static('./static'));
 app.use(bodyParser.urlencoded({
-    extended: true
+    extended: false
 }));
-/**bodyParser.json(options)
- * Parses the text as JSON and exposes the resulting object on req.body.
- */
 app.use(bodyParser.json());
 
 //Connect to db. USES POOLING
@@ -96,29 +93,29 @@ app.get('/data/reviews', function (req, res) {
 //comments (text, limit to 4194304 chars)
 app.post('/add/reviews', function(req, res){
 	//TODO: parse body, title --> escape text --> add to mysql
-	//If missing any of the parameters, then DO NOT ADD the review and return some error response.
-	let data = req.body;
+    //If missing any of the parameters, then DO NOT ADD the review and return some error response.
+    console.log(req.body);
 	
-	if(!(data.id && data.title && data.venue && data.funding && data.food && data.rec && data.reimb && data.comments)){
+	if(!req.body || !('id' in req.body && 'title' in req.body && 'venue' in req.body && 'funding' in req.body && 'food' in req.body && 'rec' in req.body && 'reimb' in req.body && 'comments' in req.body)){
 		//missing an item. do nothing and return an error response
-		res.json({status: 400, error: 'Wrong or missing parameters'})
+		res.json(400, {status: 400, error: 'Wrong or missing parameters'})
 	} else {
         function handleDBResp(err, resp) {
             if (err){
                 console.log(err);
-                res.json({status: 500, error: 'Failed to update database'});
+                res.json(500, {status: 500, error: 'Failed to update database'});
             } else{
-                res.json({status: 200, success: 'Database updated'});
+                res.json(200, {status: 200, success: 'Database updated'});
             }
         }
 		//parse input to query lang with escapings
 		let myQuery = 'INSERT INTO ' + config.db.tableName
 			+ ' (id, title, venue, funding, food, recommend, reimburse, comments) VALUES ?';
-		let dataArr = [data.id, data.title, data.venue, data.funding, data.food, data.rec, data.reimb, data.comments];
+		let dataArr = [req.body.id, req.body.title, req.body.venue, req.body.funding, req.body.food, req.body.rec, req.body.reimb, req.body.comments];
         
         //make sql query
         sqlPool.getConnection(function (err, connection) {
-            connection.query(sqlQuery, dataArr, function (err, res) {
+            connection.query(myQuery, dataArr, function (err, res) {
                 connection.release();
                 if (err) console.log('Error getting data from db!');
                 handleDBResp(err, res);
