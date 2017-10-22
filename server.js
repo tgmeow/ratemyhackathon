@@ -61,24 +61,32 @@ function pooledQuery(sqlQuery, callback) {
 //comments	- string block of text, supports emojis
 app.get('/data/reviews', function (req, res) {
 	function handleDBResp(err, resp) {
-        if (err) console.log(err);
-		
-        res.setHeader('Access-Control-Allow-Methods', 'GET');
-        res.setHeader('Content-Type', 'application/json');
-        res.send(JSON.stringify({ data: resp }));
+        if (err){
+            console.log(err);
+            res.status(500).json({status: 500, error: 'Failed to query database'});
+        }
+		else{
+            res.setHeader('Access-Control-Allow-Origin', '*');
+            res.setHeader('Access-Control-Allow-Methods', 'GET');
+            res.setHeader('Content-Type', 'application/json');
+            res.send(JSON.stringify({ data: resp }));
+        }
     }
 	//unique id = hackathon name
 	//default order (no params is by review date ascending)
 	function parseParamsQuery(query, callback){
-		let sqlQuery = 'SELECT * FROM ' + config.db.tableName + ' WHERE id =' + sqlPool.escape(query) + ' ORDER BY created_date ASC';
+		let sqlQuery = 'SELECT * FROM ' + config.db.tableName + ' WHERE id =' + sqlPool.escape(query.id) + ' ORDER BY created_date ASC';
 		
-		sqlPool(sqlQuery, function(err, res){
+		pooledQuery(sqlQuery, function(err, res){
 			if(typeof callback === 'function') callback(err, res);
 		});
 		
 	}
-	
-	parseParamsQuery(req.query, handleDBResp);
+	if('id' in req.query){
+        parseParamsQuery(req.query, handleDBResp);
+    } else{
+        res.status(400).json({status: 400, error: 'Wrong or missing parameters'});
+    }
 });
 
 //Post form data (review) to add to DB
@@ -94,28 +102,34 @@ app.get('/data/reviews', function (req, res) {
 app.post('/add/reviews', function(req, res){
 	//TODO: parse body, title --> escape text --> add to mysql
     //If missing any of the parameters, then DO NOT ADD the review and return some error response.
-    console.log(req.body);
 	
 	if(!req.body || !('id' in req.body && 'title' in req.body && 'venue' in req.body && 'funding' in req.body && 'food' in req.body && 'rec' in req.body && 'reimb' in req.body && 'comments' in req.body)){
 		//missing an item. do nothing and return an error response
-		res.json(400, {status: 400, error: 'Wrong or missing parameters'})
+		res.status(400).json({status: 400, error: 'Wrong or missing parameters'});
 	} else {
         function handleDBResp(err, resp) {
             if (err){
                 console.log(err);
-                res.json(500, {status: 500, error: 'Failed to update database'});
+                res.status(500).json({status: 500, error: 'Failed to update database'});
             } else{
-                res.json(200, {status: 200, success: 'Database updated'});
+                res.status(200).json({status: 200, success: 'Database updated'});
             }
         }
 		//parse input to query lang with escapings
 		let myQuery = 'INSERT INTO ' + config.db.tableName
-			+ ' (id, title, venue, funding, food, recommend, reimburse, comments) VALUES ?';
-		let dataArr = [req.body.id, req.body.title, req.body.venue, req.body.funding, req.body.food, req.body.rec, req.body.reimb, req.body.comments];
+            + ' (id, title, venue, funding, food, recommend, reimburse, comments) VALUES ('
+            + "'" + req.body.id + "'" + ','
+            + "'" + req.body.title + "'" + ','
+            + req.body.venue + ','
+            + req.body.funding + ','
+            + req.body.food + ','
+            + req.body.rec + ','
+            + req.body.reimb + ','
+            + "'" + req.body.comments + "'" + ')';
         
         //make sql query
         sqlPool.getConnection(function (err, connection) {
-            connection.query(myQuery, dataArr, function (err, res) {
+            connection.query(myQuery, function (err, res) {
                 connection.release();
                 if (err) console.log('Error getting data from db!');
                 handleDBResp(err, res);

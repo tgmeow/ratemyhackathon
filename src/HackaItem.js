@@ -6,9 +6,20 @@ class HackaItem extends Component {
     }
 	
   render() {
-	  
+      console.log("HackaItemMe");
+	  //onClick={this.props.mOnClick(this.props.id)}
 	  return(
-		<div>HackaItem</div>
+            <div>
+                <button onClick={() => this.props.mOnClick(this.props.id)}>
+                    {this.props.title}        
+                </button>
+                <p>
+                    {this.props.id}
+                    {this.props.venue}
+                    {this.props.funding}
+                    {this.props.food}
+                </p>
+            </div>
 	  );
   }
 }

@@ -8,7 +8,15 @@ class ReviewItem extends Component {
   render() {
 	  
 	  return(
-		<div>ReviewItem</div>
+		<div>
+            {this.props.title}
+            {this.props.venue}
+            {this.props.funding}
+            {this.props.food}
+            {this.props.recommend}
+            {this.props.reimburse}
+            {this.props.comments}
+        </div>
 	  );
   }
 }

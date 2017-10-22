@@ -1,21 +1,40 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import HackaItem from './HackaItem.js';
+import Home from './Home.js';
+import EventPage from './EventPage.js'
 
 class App extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            id: ''
+        }
+    }
+
   render() {
 	  //Body switches to display hackathon info on click.
-	  let body = (
-		<body>
+      var body; 
+      if(this.state.id === ''){
+      body = (
+		<div>
 			<h1>Upcoming Hackathons</h1>
-			<p>Here is where the upcoming hackathons will go</p>
-			
-			<p>Here is where the list of all hackathons will go</p>
-			
-			<HackaItem></HackaItem>
-		</body>
-	  )
+			<Home
+                mStateSetter={setAppState.bind(this)}
+            />
+		</div>
+      )
+    } else{
+        body = (
+            <div>
+                <EventPage
+                    mStateSetter={setAppState.bind(this)}
+                    title={this.state.id}
+                    id={this.state.id}
+                />
+            </div>
+        );
+    }
 	  //RENDER HACKAITEMS AND THEN SHOW
     return (
       <div className="App">
@@ -26,6 +45,11 @@ class App extends Component {
       </div>
     );
   }
+}
+
+function setAppState(eventKey) {
+    console.log('App state change: ' + eventKey);
+    if(this.state.id !== eventKey) this.setState({ 'id': eventKey });
 }
 
 export default App;
