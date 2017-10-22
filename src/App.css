@@ -1,0 +1,189 @@
+html {
+  height: 100%;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body{
+  background-color: #FFFFFA;
+  margin: 0 !important;
+  position: relative;
+  padding: 0 !important;
+  padding-bottom: 6rem;
+  min-height: 100%;
+  /*background-color: #F1F3F4;*/
+  /*font-family: 'Roboto', sans-serif;*/
+  /*letter-spacing: 1.25px;*/
+  /*align-items: center;*/
+}
+
+
+.App {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.App-header {
+  margin: 0;
+  background-color: #515052;
+  height: 150px;
+  line-height: 150px;
+  text-align: center;
+  color: white;
+  margin-bottom: 50px;
+}
+
+.App-title {
+  font-family: 'Roboto', sans-serif;
+  vertical-align:center;
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding-bottom: 1rem;
+  height: 50px;   /* Height of the footer */
+  line-height: 50px;
+  background-color: #C6D8D3;
+  text-align: center;
+}
+
+button {
+  font-family: 'Roboto', sans-serif;
+  background-color: transparent;
+  border: none;
+  color: Black;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  width: 100%;
+}
+
+button:active, button:focus {
+  outline: 0;
+  border: none;
+  cursor: hand;
+}
+
+table {
+  font-family: 'Roboto', sans-serif;
+  margin-top: 50px;
+  border-collapse: collapse;
+  width: 90%;
+  max-width: 800px;
+  padding-bottom: 50px;
+}
+th{
+  font-weight: bold;
+  background-color: #F0544F;
+  color: white;
+  height: 50px;
+}
+th, td{
+  border-bottom: 1px solid #ddd;
+}
+
+
+th:hover{}
+
+
+h1 {
+  margin: 0;
+  padding: 0;
+}
+
+.mFormItem{
+  text-align:center;
+  margin: 10px auto;
+  border: black;
+  width: 100px;
+}
+
+.mFormTitle{
+  text-align:center;
+  align-content: center;
+  margin: 10px auto;
+  border: black;
+  width: 500px;
+}
+
+.formInput{
+  width: 100%;
+}
+
+#comments{
+  width: 500px;
+  height: 100px;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  outline: none;
+  border: 3px solid #ccc;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.eventPage{
+  padding-bottom: 70px;
+  align-content: center;
+}
+
+input[type=text], input[type=number] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 3px solid #ccc;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  outline: none;
+}
+
+.formInput:focus, #comments.focus{
+  border: 3px solid #555;
+}
+
+.submitbutton {
+  background-color: #F0544F;
+  width: 200px;
+  border: none;
+  padding: 16px 32px;
+  text-decoration: none;
+  margin: 4px auto;
+  cursor: hand;
+  font-weight: bold !important;
+  margin-bottom: 50px;
+}
+
+.reviewHead{
+  background-color: #515052;
+  padding: 2px 20px;
+  border: 1px solid #FFFFFA;
+}
+
+.revList{
+  margin: 5px auto;
+}
+
+.revTitle {
+  margin: 10px;
+  font-size: 30pt;
+  font-weight: bold;
+}
+
+tr:hover {background-color: #ccc;}
