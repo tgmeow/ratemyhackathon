@@ -29,14 +29,14 @@ class ReviewsList extends Component {
         }.bind(this));
         //load first page
     }
-    componentDidUpdate(prevProps, prevState) {
-        if (prevProps.id !== this.props.selection) {
-            console.log('Updated: ' + this.props.id);
-            getPageElements(this.props.id, function (newData) {
-                this.setState({ data: newData });
-            }.bind(this));
-        }
-    }
+    // componentDidUpdate(prevProps, prevState) {
+    //     if (prevProps.id !== this.props.id) {
+    //         console.log('Updated: ' + this.props.id);
+    //         getPageElements(this.props.id, function (newData) {
+    //             this.setState({ data: newData });
+    //         }.bind(this));
+    //     }
+    // }
 	
   render() {
       let mReviews;
@@ -45,12 +45,13 @@ class ReviewsList extends Component {
     } else{
         mReviews = this.state.data.map((reviewItem) => (
             <ReviewItem
+                key={reviewItem.created_date}
                 id={reviewItem.id}
                 title={reviewItem.title}
                 venue={reviewItem.venue}
                 funding={reviewItem.funding}
                 food={reviewItem.food}
-                recommend={reviewItem.recommend}
+                recommend={reviewItem.recommend.data}
                 reimburse={reviewItem.reimburse}
                 comments={reviewItem.comments}
             />

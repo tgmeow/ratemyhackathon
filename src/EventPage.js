@@ -12,6 +12,9 @@ class EventPage extends Component {
             <button onClick={() => this.props.mStateSetter('')}>
                 HOME
             </button>
+
+            
+
             <ReviewsList
                 title={this.props.title}
                 id={this.props.id}

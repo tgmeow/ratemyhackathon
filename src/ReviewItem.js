@@ -9,13 +9,13 @@ class ReviewItem extends Component {
 	  
 	  return(
 		<div>
-            {this.props.title}
-            {this.props.venue}
-            {this.props.funding}
-            {this.props.food}
-            {this.props.recommend}
-            {this.props.reimburse}
-            {this.props.comments}
+            <div>{this.props.title}</div>
+            <div>{this.props.venue}</div>
+            <div>{this.props.funding}</div>
+            <div>{this.props.food}</div>
+            <div>{this.props.recommend}</div>
+            <div>{this.props.reimburse}</div>
+            <div>{this.props.comments}</div>
         </div>
 	  );
   }
