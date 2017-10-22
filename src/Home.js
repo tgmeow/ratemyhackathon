@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import HackaItem from './HackaItem.js';
+import './App.css';
 
 //Ideally this data is from the server, but that has not been implemented yet :)
 const sumData = [
@@ -52,9 +53,15 @@ class Home extends Component {
         return(
             <div>
                 <p>Here is where the upcoming hackathons will go</p>
-			
-			    <p>Here is where the list of all hackathons will go</p>
-                {mList}
+                <table align="center">
+                    <tr>
+                        <th>Hackathon</th>
+                        <th>Venue</th>
+                        <th>Funding</th>
+                        <th>Food</th>
+                    </tr>
+                    {mList}
+                </table>
             </div>
         );
     }
