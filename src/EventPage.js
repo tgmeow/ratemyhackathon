@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReviewForm from './ReviewForm';
 import ReviewsList from './ReviewsList';
 
 class EventPage extends Component {
@@ -13,6 +14,7 @@ class EventPage extends Component {
                 HOME
             </button>
 
+            <ReviewForm id={this.props.id}/>
             
 
             <ReviewsList

@@ -75,7 +75,7 @@ app.get('/data/reviews', function (req, res) {
 	//unique id = hackathon name
 	//default order (no params is by review date ascending)
 	function parseParamsQuery(query, callback){
-		let sqlQuery = 'SELECT * FROM ' + config.db.tableName + ' WHERE id =' + sqlPool.escape(query.id) + ' ORDER BY created_date ASC';
+		let sqlQuery = 'SELECT * FROM ' + config.db.tableName + ' WHERE id =' + sqlPool.escape(query.id) + ' ORDER BY created_date DESC';
 		
 		pooledQuery(sqlQuery, function(err, res){
 			if(typeof callback === 'function') callback(err, res);
@@ -102,7 +102,7 @@ app.get('/data/reviews', function (req, res) {
 app.post('/add/reviews', function(req, res){
 	//TODO: parse body, title --> escape text --> add to mysql
     //If missing any of the parameters, then DO NOT ADD the review and return some error response.
-	
+	console.log(req.body);
 	if(!req.body || !('id' in req.body && 'title' in req.body && 'venue' in req.body && 'funding' in req.body && 'food' in req.body && 'rec' in req.body && 'reimb' in req.body && 'comments' in req.body)){
 		//missing an item. do nothing and return an error response
 		res.status(400).json({status: 400, error: 'Wrong or missing parameters'});
