@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
+import '../public/App.css';
 
 import Home from './Home.js';
 import EventPage from './EventPage.js'
