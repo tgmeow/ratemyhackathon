@@ -60,10 +60,6 @@ class ReviewsList extends Component {
 	  
 	  return(
         <div>
-            <div className="revItem">
-                {this.props.title}
-            </div>
-            <br/>
             <table className="revList">
                 <tr>
                     <th className="reviewHead">Title</th>

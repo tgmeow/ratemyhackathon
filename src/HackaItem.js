@@ -7,8 +7,6 @@ class HackaItem extends Component {
     }
 	
   render() {
-      console.log("HackaItemMe");
-	  //onClick={this.props.mOnClick(this.props.id)}
 	  return(
           <tr>
               <td> <button onClick={() => this.props.mOnClick(this.props.id)}>
