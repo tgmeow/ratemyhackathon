@@ -8,15 +8,15 @@ class ReviewItem extends Component {
   render() {
 	  
 	  return(
-		<div>
-            <div>{this.props.title}</div>
-            <div>{this.props.venue}</div>
-            <div>{this.props.funding}</div>
-            <div>{this.props.food}</div>
-            <div>{this.props.recommend}</div>
-            <div>{this.props.reimburse}</div>
-            <div>{this.props.comments}</div>
-        </div>
+		<tr>
+            <td>{this.props.title}</td>
+            <td>{this.props.venue}</td>
+            <td>{this.props.funding}</td>
+            <td>{this.props.food}</td>
+            <td>{this.props.recommend}</td>
+            <td>{this.props.reimburse}</td>
+            <td>{this.props.comments}</td>
+        </tr>
 	  );
   }
 }

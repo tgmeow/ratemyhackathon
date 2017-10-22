@@ -60,9 +60,22 @@ class ReviewsList extends Component {
 	  
 	  return(
         <div>
-            {this.props.title}
+            <div className="revItem">
+                {this.props.title}
+            </div>
             <br/>
+            <table className="revList">
+                <tr>
+                    <th className="reviewHead">Title</th>
+                    <th className="reviewHead">Venue</th>
+                    <th className="reviewHead">Funding</th>
+                    <th className="reviewHead">Food</th>
+                    <th className="reviewHead">Recommend</th>
+                    <th className="reviewHead">Reimburse</th>
+                    <th className="reviewHead">Comments</th>
+                </tr>
             {mReviews}
+            </table>
         </div>
 	  );
   }

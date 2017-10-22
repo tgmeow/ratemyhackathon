@@ -42,7 +42,6 @@ class App extends Component {
           <h1 className="App-title">Rate My Hackathon</h1>
         </header>
 		{body}
-		<div className = "footer">© RateMyHackathon 2017</div>
       </div>
     );
   }

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './App.css';
 
 import axios from 'axios';
 
@@ -41,36 +42,36 @@ class ReviewForm extends Component {
     var form;
     if(this.state.formVisible) form = (
         <form onSubmit={this.onSubmit} method={'post'}>
-          <div>
-              <label htmlFor={'title'}>Title:</label>
-              <input type={'text'} id={'title'} name={'title'} onChange={this.onChange}/>
+          <div className = "mFormTitle">
+              <label className = "formText" htmlFor={'title'}>Title:</label>
+              <input className = "formInput" type={'text'} id={'title'} name={'title'} onChange={this.onChange}/>
           </div>
-          <div>
-              <label htmlFor={'venue'}>Venue:</label>
-              <input type={'number'} name={'venue'} min={'0'} max={'10'} onChange={this.onChange}/>
+          <div className = "mFormItem">
+              <label className = "formText" htmlFor={'venue'}>Venue Rating:</label>
+              <input className = "formInput" type={'number'} name={'venue'} min={'0'} max={'10'} onChange={this.onChange}/>
           </div>
-          <div>
-              <label htmlFor={'funding'}>Sponsors/Prizes:</label>
-              <input type={'number'} name={'funding'} min={'0'} max={'10'} onChange={this.onChange}/>
+          <div className = "mFormItem">
+              <label className = "formText" htmlFor={'funding'}>Sponsors/Prizes Rating:</label>
+              <input className = "formInput" type={'number'} name={'funding'} min={'0'} max={'10'} onChange={this.onChange}/>
           </div>
-          <div>
-              <label htmlFor={'food'}>Food:</label>
-              <input type={'number'} name={'food'} min={'0'} max={'10'} onChange={this.onChange}/>
+          <div className = "mFormItem">
+              <label className = "formText" htmlFor={'food'}>Food Rating:</label>
+              <input className = "formInput" type={'number'} name={'food'} min={'0'} max={'10'} onChange={this.onChange}/>
           </div>
-          <div>
-              <label htmlFor={'rec'}>Recommend to Others?:</label>
-              <input type="radio" name="rec" value="1" defaultChecked onChange={this.onChange}/> Yes<br/>
+          <div className = "mFormItem">
+              <label className = "formText" htmlFor={'rec'}>Recommend to Others?: </label>
+              <br/> <input type="radio" name="rec" value="1" defaultChecked onChange={this.onChange}/> Yes<br/>
               <input type="radio" name="rec" value="0"onChange={this.onChange}/> No<br/>
           </div>
-          <div>
-              <label htmlFor={'reimb'}>Reimbursement:</label>
-              <input type={'number'} name={'reimb'} min={'0'} max={'16000000'} onChange={this.onChange}/>
+          <div className = "mFormItem">
+              <label className = "formText" htmlFor={'reimb'}>Reimbursement:</label>
+              <input className = "formInput" type={'number'} name={'reimb'} min={'0'} max={'16000000'} onChange={this.onChange}/>
           </div>
-          <div>
-              <label htmlFor={'comments'}>Comments:</label>
-              <textarea id={'comments'} name={'comments'} onChange={this.onChange}></textarea>
+          <div className = "mFormTitle">
+              <label className = "formText" htmlFor={'comments'}>Comments:</label><br/>
+              <textarea className = "formInput" id={'comments'} name={'comments'} onChange={this.onChange}></textarea>
           </div>
-          <div className={'button'}>
+          <div className={'submitbutton'}>
               <button type={'submit'}>Submit</button>
           </div>
       </form>

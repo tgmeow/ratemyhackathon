@@ -9,18 +9,19 @@ class EventPage extends Component {
 	
   render() {
 	  return(
-		<div>
+		<div className="eventPage">
             <button onClick={() => this.props.mStateSetter('')}>
                 HOME
             </button>
 
             <ReviewForm id={this.props.id}/>
+
             
 
             <ReviewsList
-                title={this.props.title}
-                id={this.props.id}
+                title={this.props.title} id={this.props.id}
             />
+
         </div>
 	  );
   }
